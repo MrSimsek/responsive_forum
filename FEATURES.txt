@@ -1,0 +1,10 @@
+FEATURES
+
+1. Registration
+2. Categories, Sub-categories, Posts, Replies
+3. Pinned Posts
+4. User Account Page
+5. Account Summary at Top
+6. User roles (Admin, Moderator)
+7. Secret forum categories to forum admins and mods
+8. User ranks (Rookie, Amateur, Pro) based on # of posts
