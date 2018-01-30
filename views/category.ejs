@@ -8,27 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title><%= forumData.title %></title>
+    <title><%= title %></title>
 </head>
 <body>
     <div class="container">
         <% include partials/user_info.ejs %>
         <% include partials/breadcrumb.ejs %>
-        <% for(var i = 0; i < forumData.categories.length; i++) { %>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-dark mb-3">
-                        <div class="card-header"><%= forumData.categories[i].name %></div>
-                        <div class="card-body text-dark">
-                            <% for(var j = 0; j < forumData.categories[i].sub_categories.length; j++) { %>
-                                <h5 class="card-title"><a href="/<%= forumData.categories[i].route %>/<%= forumData.categories[i].sub_categories[j].route %>"><%= forumData.categories[i].sub_categories[j].title %></a></h5>
-                                <p class="card-text"><%= forumData.categories[i].sub_categories[j].description %></p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-dark mb-3">
+                    <div class="card-header"><%= sub_category_name %></div>
+                    <div class="card-body text-dark">
+                        <% if(posts) { %>
+                            <% for(var j = 0; j < posts.length; j++) { %>
+                                <h5 class="card-title"><%= posts[j].title %></h5>
                             <% } %>
-                        </div>
+                        <% } else { %>
+                            No post found.
+                        <% } %>
                     </div>
                 </div>
             </div>
-        <% } %>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->

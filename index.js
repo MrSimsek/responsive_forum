@@ -21,6 +21,10 @@ let forumData = {
         {
             id : 2,
             name : "Bruce Wayne"
+        },
+        {
+            id : 3,
+            name : "Deniz Simsek"
         }
     ],
     categories : [
@@ -107,7 +111,11 @@ app.get('/:category/:sub_category', (req, res) => {
         if( forumData.categories[i].route === category ) {
             for( var j = 0; j < forumData.categories[i].sub_categories.length; j++ ) {
                 if( forumData.categories[i].sub_categories[j].route === sub_category )
-                    return res.send(forumData.categories[i].sub_categories[j]);
+                    return res.render('category.ejs', {
+                        title : forumData.categories[i].name,
+                        sub_category_name : forumData.categories[i].sub_categories[j].title,
+                        posts : forumData.categories[i].sub_categories[j].posts
+                    });
 
                 if( j === forumData.categories[i].sub_categories.length - 1 )
                     return res.send('Sub category not found.');
