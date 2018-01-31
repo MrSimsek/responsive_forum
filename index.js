@@ -102,6 +102,21 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/:category', (req, res) => {
+    const category = req.params.category;
+
+    for( var i = 0; i < forumData.categories.length; i++ ) {
+
+        if( forumData.categories[i].route === category ) {
+            return res.status(200).send("Category exist.");
+        }
+
+        if( i === forumData.categories.length - 1 )
+            return res.send('Category not found.');
+    }
+
+});
+
 app.get('/:category/:sub_category', (req, res) => {
     const category = req.params.category;
     const sub_category = req.params.sub_category;
@@ -113,9 +128,51 @@ app.get('/:category/:sub_category', (req, res) => {
                 if( forumData.categories[i].sub_categories[j].route === sub_category )
                     return res.render('category.ejs', {
                         title : forumData.categories[i].name,
+                        routes : {
+                            categoryRoute : forumData.categories[i].route,
+                            sub_categoryRoute : forumData.categories[i].sub_categories[j].route,
+                        },
                         sub_category_name : forumData.categories[i].sub_categories[j].title,
                         posts : forumData.categories[i].sub_categories[j].posts
                     });
+
+                if( j === forumData.categories[i].sub_categories.length - 1 )
+                    return res.send('Sub category not found.');
+            }
+        }
+
+        if( i === forumData.categories.length - 1 )
+            return res.send('Category not found.');
+    }
+});
+
+app.get('/:category/:sub_category/:post', (req, res) => {
+    const category = req.params.category;
+    const sub_category = req.params.sub_category;
+    const post = req.params.post;
+
+    for( var i = 0; i < forumData.categories.length; i++ ) {
+
+        if( forumData.categories[i].route === category ) {
+            for( var j = 0; j < forumData.categories[i].sub_categories.length; j++ ) {
+                if( forumData.categories[i].sub_categories[j].route === sub_category ) {
+                    for( var k = 0; k < forumData.categories[i].sub_categories[j].posts.length; k++ ) {
+                        if( forumData.categories[i].sub_categories[j].posts[k].route === post )
+                            return res.status(200).render('post.ejs', {
+                                title : forumData.categories[i].name,
+                                routes : {
+                                    categoryRoute : forumData.categories[i].route,
+                                    sub_categoryRoue : forumData.categories[i].sub_categories[j].route,
+                                    postRoute : forumData.categories[i].sub_categories[j].posts[k].route
+                                },
+                                sub_category_name : forumData.categories[i].sub_categories[j].title,
+                                post : forumData.categories[i].sub_categories[j].posts[k]
+                            });
+
+                        if( k === forumData.categories[i].sub_categories[j].posts.length - 1 )
+                            return res.send('Posts not found.');
+                    }
+                }
 
                 if( j === forumData.categories[i].sub_categories.length - 1 )
                     return res.send('Sub category not found.');

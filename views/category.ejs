@@ -21,7 +21,9 @@
                     <div class="card-body text-dark">
                         <% if(posts) { %>
                             <% for(var j = 0; j < posts.length; j++) { %>
-                                <h5 class="card-title"><%= posts[j].title %></h5>
+                                <a class="card-title" href="/<%= routes.categoryRoute %>/<%= routes.sub_categoryRoute %>/<%= posts[j].route %>"><%= posts[j].title %></a>
+                                <p>posted by <%= posts[j].posted_by %></p>
+                                <br>
                             <% } %>
                         <% } else { %>
                             No post found.
