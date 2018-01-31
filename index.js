@@ -29,7 +29,7 @@ let forumData = {
     ],
     categories : [
         {
-            name : "Technology",
+            title : "Technology",
             route : "tech",
             sub_categories : [
                 {
@@ -73,7 +73,7 @@ let forumData = {
             ]
         },
         {
-            name : "Work & Finance",
+            title : "Work & Finance",
             route : "workfinance",
             sub_categories : [
                 {
@@ -108,7 +108,12 @@ app.get('/:category', (req, res) => {
     for( var i = 0; i < forumData.categories.length; i++ ) {
 
         if( forumData.categories[i].route === category ) {
-            return res.status(200).send("Category exist.");
+            return res.status(200).render('category.ejs', {
+                category : forumData.categories[i],
+                routes : {
+                    categoryRoute : forumData.categories[i].route,
+                }
+            });
         }
 
         if( i === forumData.categories.length - 1 )
@@ -126,13 +131,13 @@ app.get('/:category/:sub_category', (req, res) => {
         if( forumData.categories[i].route === category ) {
             for( var j = 0; j < forumData.categories[i].sub_categories.length; j++ ) {
                 if( forumData.categories[i].sub_categories[j].route === sub_category )
-                    return res.render('category.ejs', {
-                        title : forumData.categories[i].name,
+                    return res.render('sub_category.ejs', {
+                        category : forumData.categories[i],
                         routes : {
                             categoryRoute : forumData.categories[i].route,
-                            sub_categoryRoute : forumData.categories[i].sub_categories[j].route,
+                            sub_categoryRoute : forumData.categories[i].sub_categories[j].route
                         },
-                        sub_category_name : forumData.categories[i].sub_categories[j].title,
+                        sub_category : forumData.categories[i].sub_categories[j],
                         posts : forumData.categories[i].sub_categories[j].posts
                     });
 
@@ -159,13 +164,13 @@ app.get('/:category/:sub_category/:post', (req, res) => {
                     for( var k = 0; k < forumData.categories[i].sub_categories[j].posts.length; k++ ) {
                         if( forumData.categories[i].sub_categories[j].posts[k].route === post )
                             return res.status(200).render('post.ejs', {
-                                title : forumData.categories[i].name,
+                                category : forumData.categories[i],
+                                sub_category : forumData.categories[i].sub_categories[j],
                                 routes : {
                                     categoryRoute : forumData.categories[i].route,
                                     sub_categoryRoue : forumData.categories[i].sub_categories[j].route,
                                     postRoute : forumData.categories[i].sub_categories[j].posts[k].route
                                 },
-                                sub_category_name : forumData.categories[i].sub_categories[j].title,
                                 post : forumData.categories[i].sub_categories[j].posts[k]
                             });
 

@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title><%= title %></title>
+    <title><%= category.title %></title>
 </head>
 <body>
     <div class="container">
@@ -17,16 +17,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-dark mb-3">
-                    <div class="card-header"><%= sub_category_name %></div>
+                    <div class="card-header"><%= category.title %></div>
                     <div class="card-body text-dark">
-                        <% if(posts) { %>
-                            <% for(var j = 0; j < posts.length; j++) { %>
-                                <a class="card-title" href="/<%= routes.categoryRoute %>/<%= routes.sub_categoryRoute %>/<%= posts[j].route %>"><%= posts[j].title %></a>
-                                <p>posted by <%= posts[j].posted_by %></p>
-                                <br>
-                            <% } %>
-                        <% } else { %>
-                            No post found.
+                        <% for(var j = 0; j < category.sub_categories.length; j++) { %>
+                            <h5 class="card-title"><a href="/<%= category.route %>/<%= category.sub_categories[j].route %>"><%= category.sub_categories[j].title %></a></h5>
+                            <p class="card-text"><%= category.sub_categories[j].description %></p>
                         <% } %>
                     </div>
                 </div>
