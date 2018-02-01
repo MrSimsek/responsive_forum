@@ -21,16 +21,30 @@
                     <div class="card-body text-dark">
                         <div class="row">
                             <div class="col-md-2">
-                                <p><%= post.posted_by %></p>
+                                <p><strong><%= post.posted_by %></strong></p>
+                                <img src="https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg" alt="Avatar" width="100px" height="100px">
                             </div>
                             <div class="col-md-10">
                                 <p><%= post.content %></p>
                             </div>
                         </div>
+                        <% for(var z = 0; z < post.replies.length; z++) { %>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <p><strong><%= post.replies[z].replied_by %></strong></p>
+                                    <img src="https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg" alt="Avatar" width="100px" height="100px">
+                                </div>
+                                <div class="col-md-10">
+                                    <p><%= post.replies[z].content %></p>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
+        <% include partials/forum_info.ejs %>
     </div>
 
     <!-- Optional JavaScript -->

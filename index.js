@@ -43,6 +43,16 @@ let forumData = {
                             posted_by : "John Doe",
                             title : "First post",
                             content : "Hey guys! This forum is awesome!",
+                            replies : [
+                                {
+                                    replied_by : "Bruce Wayne",
+                                    content : "Man! Your are most right."
+                                },
+                                {
+                                    replied_by : "Deniz Simsek",
+                                    content : "Definitely!"
+                                }
+                            ]
                         },
                         {
                             route : "second-post",
@@ -50,6 +60,16 @@ let forumData = {
                             posted_by : "Bruce Wayne",
                             title : "Second post",
                             content : "Hey guys! This forum is awesome!",
+                            replies : [
+                                {
+                                    replied_by : "Deniz Simsek",
+                                    content : "Man! Your are most right."
+                                },
+                                {
+                                    replied_by : "John Doe",
+                                    content : "Definitely!"
+                                }
+                            ]
                         },
                         {
                             route : "hello-guys",
@@ -57,6 +77,16 @@ let forumData = {
                             posted_by : "Deniz Simsek",
                             title : "Hello Guys!",
                             content : "Hey guys! This forum is awesome!",
+                            replies : [
+                                {
+                                    replied_by : "Deniz Simsek",
+                                    content : "Man! Your are most right."
+                                },
+                                {
+                                    replied_by : "Bruce Wayne",
+                                    content : "Definitely!"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -175,7 +205,7 @@ app.get('/:category/:sub_category/:post', (req, res) => {
                             });
 
                         if( k === forumData.categories[i].sub_categories[j].posts.length - 1 )
-                            return res.send('Posts not found.');
+                            return res.status(400).send('Posts not found.');
                     }
                 }
 
